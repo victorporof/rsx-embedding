@@ -1,0 +1,24 @@
+[package]
+name = "rsx-webapi-client-bincode"
+version = "0.1.0"
+authors = ["Victor Porof <victor.porof@gmail.com>"]
+
+[features]
+default = ["target-web"]
+
+target-web = [
+  "bincode-display-list",
+  "rsx-embedding/web-standalone-bincode-embedding"
+]
+
+bincode-display-list = []
+
+[profile.dev]
+codegen-units = 4
+
+[profile.release]
+opt-level = 3
+lto = true
+
+[dependencies]
+rsx-embedding = { path = "../rsx-targets", default-features = false }

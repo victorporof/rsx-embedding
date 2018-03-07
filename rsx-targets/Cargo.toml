@@ -1,0 +1,53 @@
+[package]
+name = "rsx-embedding"
+version = "0.1.0"
+authors = ["Victor Porof <victor.porof@gmail.com>"]
+
+[lib]
+name = "rsx_embedding"
+
+[features]
+default = ["native-embedding"]
+
+native-embedding = [
+    "webrender-display-list",
+    "rsx-primitives/hashmap-arena",
+    "rsx-native-renderer/enabled"
+]
+
+web-embedding = [
+    "json-display-list",
+    "rsx-primitives/hashmap-arena",
+    "rsx-primitives/image-dummy-decode"
+]
+
+web-standalone-json-embedding = [
+    "json-display-list",
+    "rsx-primitives/vec-arena",
+    "rsx-primitives/image-dummy-decode"
+]
+
+web-standalone-bincode-embedding = [
+    "bincode-display-list",
+    "rsx-primitives/vec-arena",
+    "rsx-primitives/image-dummy-decode"
+]
+
+ios-embedding = [
+    "json-display-list",
+    "rsx-primitives/hashmap-arena",
+    "rsx-primitives/image-dummy-decode"
+]
+
+bincode-display-list = ["rsx-primitives/bincode-display-list", "optimize-mode"]
+json-display-list = ["rsx-primitives/json-display-list", "optimize-mode"]
+webrender-display-list = ["rsx-primitives/webrender-display-list", "optimize-mode"]
+
+debug-mode = ["rsx-primitives/display-list-debug-mode"]
+optimize-mode = ["rsx-primitives/display-list-optimize-mode"]
+
+[dependencies]
+rsx-native-renderer = { git = "https://github.com/victorporof/rsx-renderers.git", default-features = false, optional = true }
+rsx-primitives = { git = "https://github.com/victorporof/rsx-primitives.git", default-features = false }
+serde = "1.0.27"
+serde_json = "1.0.9"

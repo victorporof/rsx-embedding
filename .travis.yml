@@ -1,0 +1,19 @@
+language: rust
+os:
+  - linux
+  # - osx
+rust:
+  - nightly
+notifications:
+  email: false
+before_script:
+  - cargo +nightly install rustfmt-nightly --vers 0.3.8 --force
+  - cargo +nightly install clippy --force
+  - export PATH=$PATH:~/.cargo/bin
+script:
+  - cargo build --verbose
+  - cargo test --no-default-features --features native-embedding --verbose
+  - cargo test --no-default-features --features web-embedding --verbose
+  - cargo test --no-default-features --features ios-embedding --verbose
+  - cargo +nightly fmt --all -- --write-mode=diff
+  - cargo +nightly clippy --all -- --deny warnings

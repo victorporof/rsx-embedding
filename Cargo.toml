@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "rsx-targets",
+    "rsx-webapi-client-bincode",
+    "rsx-webapi-client-json"
+]
